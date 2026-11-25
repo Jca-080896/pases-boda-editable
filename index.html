@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pases de acceso </title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+
+<div class="toolbar">
+  <h1>Pases de acceso</h1>
+  <form class="generation-controls" id="generationForm">
+    <label for="totalPasses">Total de pases
+      <input id="totalPasses" type="number" min="1" step="1" required>
+    </label>
+    <label for="passesPerPage">Pases por página
+      <input id="passesPerPage" type="number" min="1" step="1" required>
+    </label>
+    <button class="btn" type="submit">Generar</button>
+    <span class="toolbar-hint">Más pases por página significa pases más pequeños.</span>
+    <span id="generationSummary" class="generation-summary" aria-live="polite"></span>
+  </form>
+  <button class="btn" id="btnPrint" type="button">🖨 Imprimir</button>
+</div>
+
+<div class="stage">
+  <div class="sheets" id="sheets"></div>
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
