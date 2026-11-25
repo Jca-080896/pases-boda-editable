@@ -6,6 +6,7 @@
 const CONFIG = {
   total:      100,                      // Pases generados automáticamente
   passesPerPage: 18,                    // Cantidad predeterminada por página
+  startFolio: 1,                        // Primer folio generado
   intro:      "Nos encantará compartirlo contigo",
   title:      "PASE",
   validLabel: "Válido para",

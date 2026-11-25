@@ -35,10 +35,11 @@ function buildPass(n) {
 const sheets = document.getElementById("sheets");
 const totalInput = document.getElementById("totalPasses");
 const passesPerPageInput = document.getElementById("passesPerPage");
+const startFolioInput = document.getElementById("startFolio");
 const generationForm = document.getElementById("generationForm");
 const generationSummary = document.getElementById("generationSummary");
 
-function generatePasses(total, passesPerPage) {
+function generatePasses(total, passesPerPage, startFolio) {
   const sheetFrag = document.createDocumentFragment();
   const pageCount = Math.ceil(total / passesPerPage);
   const columns = Math.min(3, passesPerPage);
@@ -65,7 +66,7 @@ function generatePasses(total, passesPerPage) {
 
     const lastPass = Math.min(firstPass + passesPerPage - 1, total);
     for (let pass = firstPass; pass <= lastPass; pass++) {
-      grid.appendChild(buildPass(pass));
+      grid.appendChild(buildPass(startFolio + pass - 1));
     }
 
     sheet.appendChild(grid);
@@ -75,19 +76,24 @@ function generatePasses(total, passesPerPage) {
 
   sheets.replaceChildren(sheetFrag);
   generationSummary.textContent =
-    `${total} pases · ${pageCount} ${pageCount === 1 ? "página" : "páginas"}`;
+    `${total} pases · ${pageCount} ${pageCount === 1 ? "página" : "páginas"} · Folios ${String(startFolio).padStart(CONFIG.folioDigits, "0")}–${String(startFolio + total - 1).padStart(CONFIG.folioDigits, "0")}`;
   fitPreview();
 }
 
 totalInput.value = CONFIG.total;
 passesPerPageInput.value = CONFIG.passesPerPage;
-generatePasses(CONFIG.total, CONFIG.passesPerPage);
+startFolioInput.value = CONFIG.startFolio;
+generatePasses(CONFIG.total, CONFIG.passesPerPage, CONFIG.startFolio);
 
 generationForm.addEventListener("submit", (event) => {
   event.preventDefault();
   if (!generationForm.reportValidity()) return;
 
-  generatePasses(Number(totalInput.value), Number(passesPerPageInput.value));
+  generatePasses(
+    Number(totalInput.value),
+    Number(passesPerPageInput.value),
+    Number(startFolioInput.value)
+  );
 });
 
 /* =====================================================
